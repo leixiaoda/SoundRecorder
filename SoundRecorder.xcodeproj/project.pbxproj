@@ -17,6 +17,7 @@
 		2A65940C1E616015005044D6 /* SoundRecorderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65940B1E616015005044D6 /* SoundRecorderUITests.swift */; };
 		2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941A1E6171EA005044D6 /* DataMgr.swift */; };
 		2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941D1E6173F0005044D6 /* SoundModel.swift */; };
+		2A6594201E61AB37005044D6 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941F1E61AB37005044D6 /* AudioController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		2A65940D1E616015005044D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A65941A1E6171EA005044D6 /* DataMgr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataMgr.swift; path = Controller/DataMgr.swift; sourceTree = "<group>"; };
 		2A65941D1E6173F0005044D6 /* SoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundModel.swift; path = Modle/SoundModel.swift; sourceTree = "<group>"; };
+		2A65941F1E61AB37005044D6 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioController.swift; path = Controller/AudioController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				2A65941A1E6171EA005044D6 /* DataMgr.swift */,
+				2A65941F1E61AB37005044D6 /* AudioController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				2A6593F11E616015005044D6 /* SoundRecorder.xcdatamodeld in Sources */,
 				2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */,
 				2A6593EB1E616015005044D6 /* ViewController.swift in Sources */,
+				2A6594201E61AB37005044D6 /* AudioController.swift in Sources */,
 				2A6593E91E616015005044D6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
