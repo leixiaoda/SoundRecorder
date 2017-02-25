@@ -17,13 +17,6 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         return instance
     }
     
-    // test
-//    var counter = 0
-//    func addCounter() {
-//        counter += 1;
-//        print("counter: \(counter)")
-//    }
-    
     // 录音器
     var audioRecorder: AVAudioRecorder!
     // 播放器

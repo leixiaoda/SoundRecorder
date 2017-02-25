@@ -30,10 +30,6 @@ class ViewController: UIViewController {
 //            print("count: \(array!.count)")
 //        }
         
-        // singleton
-//        AudioController.sharedInstance().addCounter()
-//        AudioController.instance.addCounter()
-        
         
     }
     
