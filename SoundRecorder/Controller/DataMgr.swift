@@ -25,6 +25,7 @@ class DataMgr: NSObject {
         sound.setValue(model.name, forKey: "name")
         sound.setValue(model.path, forKey: "path")
         sound.setValue(model.duration, forKey: "duration")
+        sound.setValue(model.createTime, forKey: "createTime")
         
         do {
             try context.save()
@@ -37,16 +38,17 @@ class DataMgr: NSObject {
     func getSound() -> [SoundModel]? {
         var soundModels = [SoundModel]()
         
+        let context = getContext()
         let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
         do {
-            
-            let searchResults = try getContext().fetch(fetchRequest)
+            let searchResults = try context.fetch(fetchRequest)
             for sound in searchResults as [NSManagedObject] {
-                let soundName = sound.value(forKey: "name") as! String
-                let soundPath = sound.value(forKey: "path") as! String
-                let soundDuration = sound.value(forKey: "duration") as! Double
+                let name = sound.value(forKey: "name") as! String
+                let path = sound.value(forKey: "path") as! String
+                let duration = sound.value(forKey: "duration") as! Double
+                let createTime = sound.value(forKey: "createTime") as! Date
                 
-                let model = SoundModel(name: soundName, path: soundPath, duration: soundDuration)
+                let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
                 soundModels.append(model)
             }
         } catch let error as NSError {
@@ -54,6 +56,36 @@ class DataMgr: NSObject {
         }
         
         return soundModels
+    }
+    
+    func deleteSound(createTimeDemand: Date) {
+        let context = getContext()
+        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
+        do {
+            let searchResults = try context.fetch(fetchRequest)
+            for sound in searchResults as [NSManagedObject] {
+                let createTime = sound.value(forKey: "createTime") as! Date
+                if createTime == createTimeDemand {
+                    context.delete(sound)
+                }
+            }
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+
+    
+    func deleteAllSound() {
+        let context = getContext()
+        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
+        do {
+            let searchResults = try context.fetch(fetchRequest)
+            for sound in searchResults as [NSManagedObject] {
+                context.delete(sound)
+            }
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     func getContext() -> NSManagedObjectContext {

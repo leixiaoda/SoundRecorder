@@ -15,11 +15,14 @@ class ViewController: UIViewController {
         
         // core data
         let dataMgr = DataMgr()
-        let model1 = SoundModel(name: "clips1", path: "../../clips1.mp4", duration: 4.688)
-        let model2 = SoundModel(name: "clips2", path: "../../clips2.mp4", duration: 1.23)
+        let model1 = SoundModel(name: "clips1", path: "../../clips1.mp4", duration: 4.688, createTime: Date())
+        let model2 = SoundModel(name: "clips2", path: "../../clips2.mp4", duration: 1.23, createTime: Date())
         
 //        dataMgr.storeSound(model: model1)
 //        dataMgr.storeSound(model: model2)
+        
+        dataMgr.deleteAllSound()
+        
         let array = dataMgr.getSound()
         if array != nil {
             print("count: \(array!.count)")

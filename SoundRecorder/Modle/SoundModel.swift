@@ -14,4 +14,5 @@ struct SoundModel {
     var name: String
     var path: String
     var duration: Double
+    var createTime: Date
 }
