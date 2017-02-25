@@ -15,6 +15,8 @@
 		2A6593F61E616015005044D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A6593F41E616015005044D6 /* LaunchScreen.storyboard */; };
 		2A6594011E616015005044D6 /* SoundRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6594001E616015005044D6 /* SoundRecorderTests.swift */; };
 		2A65940C1E616015005044D6 /* SoundRecorderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65940B1E616015005044D6 /* SoundRecorderUITests.swift */; };
+		2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941A1E6171EA005044D6 /* DataMgr.swift */; };
+		2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941D1E6173F0005044D6 /* SoundModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		2A6594071E616015005044D6 /* SoundRecorderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundRecorderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A65940B1E616015005044D6 /* SoundRecorderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundRecorderUITests.swift; sourceTree = "<group>"; };
 		2A65940D1E616015005044D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A65941A1E6171EA005044D6 /* DataMgr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataMgr.swift; path = Controller/DataMgr.swift; sourceTree = "<group>"; };
+		2A65941D1E6173F0005044D6 /* SoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundModel.swift; path = Modle/SoundModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				2A6593E81E616015005044D6 /* AppDelegate.swift */,
+				2A65941C1E6173D0005044D6 /* Model */,
+				2A6594191E6171C0005044D6 /* Controller */,
 				2A6593EA1E616015005044D6 /* ViewController.swift */,
 				2A6593EC1E616015005044D6 /* Main.storyboard */,
 				2A6593F21E616015005044D6 /* Assets.xcassets */,
@@ -126,6 +132,22 @@
 				2A65940D1E616015005044D6 /* Info.plist */,
 			);
 			path = SoundRecorderUITests;
+			sourceTree = "<group>";
+		};
+		2A6594191E6171C0005044D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2A65941A1E6171EA005044D6 /* DataMgr.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		2A65941C1E6173D0005044D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2A65941D1E6173F0005044D6 /* SoundModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +284,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */,
 				2A6593F11E616015005044D6 /* SoundRecorder.xcdatamodeld in Sources */,
+				2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */,
 				2A6593EB1E616015005044D6 /* ViewController.swift in Sources */,
 				2A6593E91E616015005044D6 /* AppDelegate.swift in Sources */,
 			);
@@ -507,6 +531,7 @@
 				2A6594121E616015005044D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A6594131E616015005044D6 /* Build configuration list for PBXNativeTarget "SoundRecorderTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +540,7 @@
 				2A6594151E616015005044D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A6594161E616015005044D6 /* Build configuration list for PBXNativeTarget "SoundRecorderUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +549,7 @@
 				2A6594181E616015005044D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
