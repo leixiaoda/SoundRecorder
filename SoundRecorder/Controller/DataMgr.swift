@@ -34,22 +34,26 @@ class DataMgr: NSObject {
         }
     }
     
-    func getSound () {
-        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
+    func getSound() -> [SoundModel]? {
+        var soundModels = [SoundModel]()
         
+        let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
         do {
+            
             let searchResults = try getContext().fetch(fetchRequest)
-            
-            print ("num of results = \(searchResults.count)")
-            
             for sound in searchResults as [NSManagedObject] {
-                print("\(sound.value(forKey: "name"))")
-                print("\(sound.value(forKey: "path"))")
-                print("\(sound.value(forKey: "duration"))")
+                let soundName = sound.value(forKey: "name") as! String
+                let soundPath = sound.value(forKey: "path") as! String
+                let soundDuration = sound.value(forKey: "duration") as! Double
+                
+                let model = SoundModel(name: soundName, path: soundPath, duration: soundDuration)
+                soundModels.append(model)
             }
-        } catch {
-            print("Error with request: \(error)")
+        } catch let error as NSError {
+            print(error)
         }
+        
+        return soundModels
     }
     
     func getContext() -> NSManagedObjectContext {
