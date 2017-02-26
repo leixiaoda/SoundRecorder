@@ -45,9 +45,8 @@ class ViewController: UIViewController {
             y: (self.view.bounds.size.height - recordBtnSize.height) / 2.0,
             width: recordBtnSize.width,
             height: recordBtnSize.height)
-        recordBtn.backgroundColor = UIColor.blue
-        recordBtn.layer.cornerRadius = recordBtnSize.width / 2
-        recordBtn.setTitle("录音", for: .normal)
+        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+//        recordBtn.setTitle("录音", for: .normal)
         recordBtn.titleLabel?.font = UIFont.systemFont(ofSize: 60)
         recordBtn.setTitleColor(UIColor.black, for: .normal)
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
@@ -58,17 +57,13 @@ class ViewController: UIViewController {
         
         // 播放按钮
         playOrStopBtn = UIButton()
-        let playOrStopBtnSize: CGSize = CGSize(width: 80, height: 30)
+        let playOrStopBtnSize: CGSize = CGSize(width: 50, height: 50)
         playOrStopBtn.frame = CGRect.init(
-            x: self.view.bounds.size.width - 100,
-            y: self.view.bounds.size.height - 120,
+            x: (self.view.frame.size.width - playOrStopBtnSize.width) / 2,
+            y: self.view.frame.size.height - 120,
             width: playOrStopBtnSize.width,
             height: playOrStopBtnSize.height)
-        playOrStopBtn.setTitle("播放", for: .normal)
-        playOrStopBtn.backgroundColor = UIColor.green
-        playOrStopBtn.layer.borderWidth = 2
-        playOrStopBtn.layer.cornerRadius = 16.0
-        playOrStopBtn.setTitleColor(UIColor.green, for: .normal)
+        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
         playOrStopBtn.addTarget(self, action: #selector(didClickplayOrStopBtn), for: .touchUpInside)
         playOrStopBtn.isHidden = true
         
@@ -111,11 +106,11 @@ class ViewController: UIViewController {
     }
     
     func setRecordingUI() {
-        recordBtn.backgroundColor = UIColor.black
+        recordBtn.setImage(UIImage(named:"recordBtn_pressed.png"), for: .normal)
     }
     
     func setStopRecordingUI() {
-        recordBtn.backgroundColor = UIColor.blue
+        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
     }
     
     // 保存录音数据
@@ -164,13 +159,11 @@ class ViewController: UIViewController {
     }
     
     func setPlayingUI() {
-        playOrStopBtn.backgroundColor = UIColor.black
-        playOrStopBtn.setTitle("停止", for: .normal)
+        playOrStopBtn.setImage(UIImage(named:"stopBtn.png"), for: .normal)
     }
     
     func setStopPlayingUI() {
-        playOrStopBtn.backgroundColor = UIColor.green
-        playOrStopBtn.setTitle("播放", for: .normal)
+        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
     }
 
 

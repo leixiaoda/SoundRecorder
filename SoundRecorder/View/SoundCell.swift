@@ -45,7 +45,7 @@ class SoundCell: UITableViewCell {
         
         let buttonSize = CGSize(width: 30, height: 30)
         playOrStopBtn = UIButton(frame: CGRect.init(x: UIScreen.main.bounds.width - buttonSize.width - 30, y: (CELL_HEIGHT - buttonSize.height) / 2, width: buttonSize.width, height: buttonSize.height))
-        playOrStopBtn.backgroundColor = UIColor.green
+        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
         self.addSubview(playOrStopBtn)
     }
     
@@ -67,10 +67,10 @@ class SoundCell: UITableViewCell {
     }
     
     private func setPlayingUI() {
-        playOrStopBtn.backgroundColor = UIColor.black
+        playOrStopBtn.setImage(UIImage(named:"stopBtn.png"), for: .normal)
     }
     
     private func setDefaultUI() {
-        playOrStopBtn.backgroundColor = UIColor.green
+        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
     }
 }
