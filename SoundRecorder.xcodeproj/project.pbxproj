@@ -86,6 +86,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A2090E91E631E1100B130A3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2A6593E81E616015005044D6 /* AppDelegate.swift */,
+				2A6593EC1E616015005044D6 /* Main.storyboard */,
+				2A6593F21E616015005044D6 /* Assets.xcassets */,
+				2A6593F41E616015005044D6 /* LaunchScreen.storyboard */,
+				2A6593F71E616015005044D6 /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		2A6593DC1E616015005044D6 = {
 			isa = PBXGroup;
 			children = (
@@ -109,17 +121,13 @@
 		2A6593E71E616015005044D6 /* SoundRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				2A6593E81E616015005044D6 /* AppDelegate.swift */,
 				2A65941C1E6173D0005044D6 /* Model */,
 				2ADC86821E6293E8006EE130 /* View */,
 				2A6594191E6171C0005044D6 /* Controller */,
 				2A6593EA1E616015005044D6 /* ViewController.swift */,
 				2ADC86801E6285D9006EE130 /* SoundListViewController.swift */,
-				2A6593EC1E616015005044D6 /* Main.storyboard */,
-				2A6593F21E616015005044D6 /* Assets.xcassets */,
-				2A6593F41E616015005044D6 /* LaunchScreen.storyboard */,
-				2A6593F71E616015005044D6 /* Info.plist */,
 				2A6593EF1E616015005044D6 /* SoundRecorder.xcdatamodeld */,
+				2A2090E91E631E1100B130A3 /* SupportingFiles */,
 			);
 			path = SoundRecorder;
 			sourceTree = "<group>";
