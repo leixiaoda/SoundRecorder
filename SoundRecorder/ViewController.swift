@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var recordBtn: UIButton!
+    var playBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,29 +37,39 @@ class ViewController: UIViewController {
     
     func doInitUI() {
         // 录音按钮
-        let recordBtn: UIButton = UIButton()
-        let recordBtnSize: CGSize = CGSize(width: 80, height: 30)
-        recordBtn.frame = CGRect.init(x: (self.view.bounds.size.width - recordBtnSize.width) / 2.0, y: self.view.bounds.size.height - 200, width: recordBtnSize.width, height: recordBtnSize.height)
+        recordBtn = UIButton()
+        let recordBtnSize: CGSize = CGSize(width: 200, height: 200)
+        recordBtn.frame = CGRect.init(
+            x: (self.view.bounds.size.width - recordBtnSize.width) / 2.0,
+            y: (self.view.bounds.size.height - recordBtnSize.height) / 2.0,
+            width: recordBtnSize.width,
+            height: recordBtnSize.height)
+        recordBtn.backgroundColor = UIColor.blue
+        recordBtn.layer.cornerRadius = recordBtnSize.width / 2
         recordBtn.setTitle("录音", for: .normal)
-        recordBtn.backgroundColor = UIColor.red
-        recordBtn.layer.borderWidth = 2
-        recordBtn.layer.cornerRadius = 16.0
+        recordBtn.titleLabel?.font = UIFont.systemFont(ofSize: 60)
         recordBtn.setTitleColor(UIColor.black, for: .normal)
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
+        longPressGesture.minimumPressDuration = 0.2
         recordBtn.addGestureRecognizer(longPressGesture)
         
         view.addSubview(recordBtn)
         
         // 播放按钮
-        let playBtn: UIButton = UIButton()
+        playBtn = UIButton()
         let playBtnSize: CGSize = CGSize(width: 80, height: 30)
-        playBtn.frame = CGRect.init(x: self.view.bounds.size.width - 100, y: self.view.bounds.size.height - 120, width: playBtnSize.width, height: playBtnSize.height)
+        playBtn.frame = CGRect.init(
+            x: self.view.bounds.size.width - 100,
+            y: self.view.bounds.size.height - 120,
+            width: playBtnSize.width,
+            height: playBtnSize.height)
         playBtn.setTitle("播放", for: .normal)
         playBtn.backgroundColor = UIColor.green
         playBtn.layer.borderWidth = 2
         playBtn.layer.cornerRadius = 16.0
         playBtn.setTitleColor(UIColor.green, for: .normal)
         playBtn.addTarget(self, action: #selector(didClickPlayBtn), for: .touchUpInside)
+        playBtn.isHidden = true
         
         view.addSubview(playBtn)
     }
@@ -70,10 +83,9 @@ class ViewController: UIViewController {
     
     func longPressOnRecordBtn(gesture: UILongPressGestureRecognizer) {
         if (gesture.state == .began) {
-            AudioController.sharedInstance().beginRecording()
+            beginRecording()
         } else if (gesture.state == .ended) {
-            AudioController.sharedInstance().stopRecording()
-            saveAudioData()
+            stopRecording()
         }
         else {
             
@@ -82,6 +94,26 @@ class ViewController: UIViewController {
     
     func didClickPlayBtn() {
         AudioController.sharedInstance().beginPlayingTheLatest()
+    }
+    
+    func beginRecording() {
+        AudioController.sharedInstance().beginRecording()
+        setRecordingUI()
+    }
+    
+    func stopRecording() {
+        AudioController.sharedInstance().stopRecording()
+        saveAudioData()
+        playBtn.isHidden = false
+        setDefaultUI()
+    }
+    
+    func setRecordingUI() {
+        recordBtn.backgroundColor = UIColor.red
+    }
+    
+    func setDefaultUI() {
+        recordBtn.backgroundColor = UIColor.blue
     }
     
     // 保存录音数据

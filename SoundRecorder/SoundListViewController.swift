@@ -30,12 +30,6 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
         doInitData()
     }
     
-    func didClickBackBtn() {
-        if navigationController != nil {
-            navigationController!.popViewController(animated: true)
-        }
-    }
-    
     func doInitUI() {
         soundListView = UITableView(frame: view.frame, style: .plain)
         soundListView.dataSource = self
@@ -53,6 +47,12 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleBeginPlayingNotification(notification:)), name: BeginPlayingNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleStopPlayingNotification(notification:)), name: StopPlayingNotification, object: nil)
+    }
+    
+    func didClickBackBtn() {
+        if navigationController != nil {
+            navigationController!.popViewController(animated: true)
+        }
     }
     
     // MARK: tableView delegate

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SoundRecorder/Controller/AudioController.swift"
-            timestampString = "509794784.598131"
+            timestampString = "509802490.290673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "audioPlayerDidFinishPlaying(_:successfully:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SoundRecorder/SoundListViewController.swift"
-            timestampString = "509799432.259096"
+            timestampString = "509800163.291389"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "doInitData()"
             landmarkType = "7">
          </BreakpointContent>

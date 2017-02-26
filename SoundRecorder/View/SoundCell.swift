@@ -62,7 +62,7 @@ class SoundCell: UITableViewCell {
         if state == .playing {
             setPlayingUI()
         } else if state == .stop {
-            setStopUI()
+            setDefaultUI()
         }
     }
     
@@ -70,7 +70,7 @@ class SoundCell: UITableViewCell {
         playOrStopBtn.backgroundColor = UIColor.black
     }
     
-    private func setStopUI() {
+    private func setDefaultUI() {
         playOrStopBtn.backgroundColor = UIColor.green
     }
 }
