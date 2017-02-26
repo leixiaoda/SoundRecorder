@@ -13,16 +13,22 @@ import AVFoundation
 let BeginPlayingNotification = Notification.Name("beginPlayingNotificationIdentifier")
 let StopPlayingNotification = Notification.Name("stopPlayingNotificationIdentifier")
 
+enum AudioControllerState {
+    case recording
+    case playing
+    case unused
+}
+
 
 final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     static let instance = AudioController()
     
     // 录音器
-    var audioRecorder: AVAudioRecorder!
+    private var audioRecorder: AVAudioRecorder!
     // 播放器
-    var audioPlayer: AVAudioPlayer!
+    private var audioPlayer: AVAudioPlayer!
     // 音频会话
-    let audioSession = AVAudioSession.sharedInstance()
+    private let audioSession = AVAudioSession.sharedInstance()
     
     // 是否有麦克风权限
     var hasAuthority: Bool = false
@@ -32,14 +38,20 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
                           AVNumberOfChannelsKey: NSNumber(value: 1),
                           AVEncoderAudioQualityKey: NSNumber(value: Int32(AVAudioQuality.medium.rawValue))]
     
-    // 音频创建时间
-    var audioCreateTime: Date!
-    // 音频名称
-    var audioName: String!
-    // 音频地址
-    var audioURL: URL!
-    // 音频时长
-    var audioDuration: Double!
+    // 录音器音频创建时间
+    var recorderAudioCreateTime: Date!
+    // 录音器音频名称
+    var recorderAudioName: String!
+    // 录音器音频地址
+    var recorderAudioURL: URL!
+    // 录音器音频时长
+    var recorderAudioDuration: Double!
+    
+    // 播放器音频地址
+    var playerAudioURL: URL!
+    
+    // 当前录音/播放状态
+    var currentState: AudioControllerState!
     
     private override init() {
         do {
@@ -47,7 +59,9 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         } catch let error as NSError {
             print(error)
         }
-
+        
+        currentState = AudioControllerState.unused
+        playerAudioURL = URL(string: "")
     }
     
     static func sharedInstance() -> AudioController {
@@ -73,7 +87,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     private func prepareRecording() {
         do {
             refreshAudioURL()
-            try audioRecorder = AVAudioRecorder(url: audioURL, settings: recorderSettings)
+            try audioRecorder = AVAudioRecorder(url: recorderAudioURL, settings: recorderSettings)
             audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
         } catch let error as NSError {
@@ -85,12 +99,16 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     private func startRecording() {
         if audioPlayer != nil && audioPlayer.isPlaying {
             audioPlayer.stop()
+            
+            currentState = .unused
         }
         
-        if !audioRecorder.isRecording {
+        if audioRecorder != nil && !audioRecorder.isRecording {
             do {
                 try audioSession.setActive(true)
                 audioRecorder.record()
+                
+                currentState = .recording
             } catch let error as NSError {
                 print(error)
             }
@@ -99,11 +117,13 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     
     // 停止录音
     func stopRecording() {
-        if audioRecorder.isRecording {
-            audioRecorder.stop()
+        if audioRecorder != nil && audioRecorder.isRecording {
             do {
                 try audioSession.setActive(false)
+                audioRecorder.stop()
                 refreshAudioDuration()
+                
+                currentState = .unused
             } catch let error as NSError {
                 print(error)
             }
@@ -121,6 +141,9 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
                     
                     // 发送开始播放通知
                     NotificationCenter.default.post(name: BeginPlayingNotification, object: nil, userInfo: ["url": url!])
+                    
+                    currentState = .playing
+                    playerAudioURL = url!
                 } else {
                     print("url is nil.")
                 }
@@ -137,31 +160,45 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         }
     }
     
+    // 停止播放
+    func stopPlaying() {
+        if audioPlayer != nil && audioPlayer.isPlaying {
+            audioPlayer.stop()
+            didStopPlaying()
+        }
+    }
+    
+    func didStopPlaying() {
+        currentState = .unused
+        
+        // 发送停止播放通知
+        NotificationCenter.default.post(name: StopPlayingNotification, object: nil)
+    }
+    
     // 获取新录音文件的地址
     func refreshAudioURL() {
-        audioCreateTime = Date()
+        recorderAudioCreateTime = Date()
         let formatter = DateFormatter()
         // 文件命名规范为：../年月日-时分秒.m4a
         formatter.dateFormat = "yyyyMMdd-HHmmss"
-        audioName = formatter.string(from: audioCreateTime) + ".m4a"
+        recorderAudioName = formatter.string(from: recorderAudioCreateTime) + ".m4a"
         
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
-        audioURL = documentDirectory.appendingPathComponent(audioName)
+        recorderAudioURL = documentDirectory.appendingPathComponent(recorderAudioName)
     }
     
     func refreshAudioDuration() {
-        let asset = AVURLAsset(url: audioURL)
+        let asset = AVURLAsset(url: recorderAudioURL)
         let time = asset.duration;
-        audioDuration = Double(CMTimeGetSeconds(time))
+        recorderAudioDuration = Double(CMTimeGetSeconds(time))
     }
     
     // MARK: audioPlayer delegate
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        // 发送停止播放通知
-        NotificationCenter.default.post(name: StopPlayingNotification, object: nil)
+        didStopPlaying()
     }
     
 }
