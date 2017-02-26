@@ -21,9 +21,6 @@ class ViewController: UIViewController {
         
         doInitUI()
         
-        
-        
-        
         // core data
         let dataMgr = DataMgr()
         
@@ -32,16 +29,7 @@ class ViewController: UIViewController {
 //        let array = dataMgr.getSound()
 //        if array != nil {
 //            print("count: \(array!.count)")
-//        }
-        
-        
-    }
-    
-    func didClickListBtn() {
-        if navigationController != nil {
-            let soundListVC = SoundListViewController()
-            navigationController?.pushViewController(soundListVC, animated: true)
-        }
+//        }        
     }
     
     func doInitUI() {
@@ -54,22 +42,10 @@ class ViewController: UIViewController {
         recordBtn.layer.borderWidth = 2
         recordBtn.layer.cornerRadius = 16.0
         recordBtn.setTitleColor(UIColor.black, for: .normal)
-        recordBtn.addTarget(self, action: #selector(didClickRecordBtn), for: .touchUpInside)
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
+        recordBtn.addGestureRecognizer(longPressGesture)
         
         view.addSubview(recordBtn)
-        
-        // 结束录音按钮
-        let stopBtn: UIButton = UIButton()
-        let stopBtnSize: CGSize = CGSize(width: 80, height: 30)
-        stopBtn.frame = CGRect.init(x: (self.view.bounds.size.width - stopBtnSize.width) / 2.0, y: self.view.bounds.size.height - 120, width: stopBtnSize.width, height: stopBtnSize.height)
-        stopBtn.setTitle("结束", for: .normal)
-        stopBtn.backgroundColor = UIColor.blue
-        stopBtn.layer.borderWidth = 2
-        stopBtn.layer.cornerRadius = 16.0
-        stopBtn.setTitleColor(UIColor.black, for: .normal)
-        stopBtn.addTarget(self, action: #selector(didClickStopBtn), for: .touchUpInside)
-        
-        view.addSubview(stopBtn)
         
         // 播放按钮
         let playBtn: UIButton = UIButton()
@@ -85,14 +61,25 @@ class ViewController: UIViewController {
         view.addSubview(playBtn)
     }
     
-    func didClickRecordBtn() {
-        AudioController.sharedInstance().beginRecording()
+    func didClickListBtn() {
+        if navigationController != nil {
+            let soundListVC = SoundListViewController()
+            navigationController?.pushViewController(soundListVC, animated: true)
+        }
     }
     
-    func didClickStopBtn() {
-        AudioController.sharedInstance().stopRecording()
-        saveAudioData()
+    func longPressOnRecordBtn(gesture: UILongPressGestureRecognizer) {
+        if (gesture.state == .began) {
+            AudioController.sharedInstance().beginRecording()
+        } else if (gesture.state == .ended) {
+            AudioController.sharedInstance().stopRecording()
+            saveAudioData()
+        }
+        else {
+            
+        }
     }
+    
     func didClickPlayBtn() {
         AudioController.sharedInstance().beginPlayingTheLatest()
     }
