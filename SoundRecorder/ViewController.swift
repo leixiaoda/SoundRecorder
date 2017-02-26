@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "录音器"
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor.init(red: 210/255.0, green: 210/255.0, blue: 210/255.0, alpha: 1)
         
         let showListBtn = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(didClickListBtn))
         navigationItem.rightBarButtonItem = showListBtn
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         recordBtn.alpha = 1
         recordBtn.adjustsImageWhenHighlighted = false
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
-        longPressGesture.minimumPressDuration = 0.2
+        longPressGesture.minimumPressDuration = 0.1
         recordBtn.addGestureRecognizer(longPressGesture)
         
         view.addSubview(recordBtn)
@@ -106,12 +106,17 @@ class ViewController: UIViewController {
     
     func setRecordingUI() {
         recordBtn.alpha = 0.8
-        recordBtn.transform = recordBtn.transform.scaledBy(x: 1.25, y: 1.25)
+        
+        let animation = CABasicAnimation(keyPath: "transform.scale")
+        animation.duration = 0.1
+        animation.fromValue = 1.0
+        animation.toValue = 1.25
+        animation.autoreverses = true
+        recordBtn.layer.add(animation, forKey: "scale-layer")
     }
     
     func setStopRecordingUI() {
         recordBtn.alpha = 1
-        recordBtn.transform = recordBtn.transform.scaledBy(x: 0.8, y: 0.8)
     }
     
     // 保存录音数据
