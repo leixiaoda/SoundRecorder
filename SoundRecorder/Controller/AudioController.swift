@@ -32,6 +32,16 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
                           AVNumberOfChannelsKey: NSNumber(value: 1),
                           AVEncoderAudioQualityKey: NSNumber(value: Int32(AVAudioQuality.medium.rawValue))]
     
+    // 音频创建时间
+    var audioCreateTime: Date!
+    // 音频名称
+    var audioName: String!
+    // 音频地址
+    var audioURL: URL!
+    // 音频时长
+    var audioDuration: Double!
+    
+    
     // 开始录音的一系列步骤
     func beginRecording() {
         // 判断是否有麦克风权限
@@ -50,7 +60,8 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     private func prepareRecording() {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioRecorder = AVAudioRecorder(url: newSoundURL(), settings: recorderSettings)
+            refreshAudioURL()
+            try audioRecorder = AVAudioRecorder(url: audioURL, settings: recorderSettings)
             audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
         } catch let error as NSError {
@@ -80,6 +91,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
             audioRecorder.stop()
             do {
                 try audioSession.setActive(false)
+                refreshAudioDuration()
             } catch let error as NSError {
                 print(error)
             }
@@ -109,18 +121,23 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     }
     
     // 获取新录音文件的地址
-    func newSoundURL() -> URL {
-        let currentDate = Date()
+    func refreshAudioURL() {
+        audioCreateTime = Date()
         let formatter = DateFormatter()
         // 文件命名规范为：../年月日-时分秒.m4a
         formatter.dateFormat = "yyyyMMdd-HHmmss"
-        let recordingName = formatter.string(from: currentDate) + ".m4a"
+        audioName = formatter.string(from: audioCreateTime) + ".m4a"
         
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
-        let soundURL = documentDirectory.appendingPathComponent(recordingName)
-        return soundURL
+        audioURL = documentDirectory.appendingPathComponent(audioName)
+    }
+    
+    func refreshAudioDuration() {
+        let asset = AVURLAsset(url: audioURL)
+        let time = asset.duration;
+        audioDuration = Double(CMTimeGetSeconds(time))
     }
     
 }

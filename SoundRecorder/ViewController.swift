@@ -13,10 +13,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "录音器"
+        view.backgroundColor = UIColor.lightGray
+        
+        let showListBtn = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(didClickListBtn))
+        navigationItem.rightBarButtonItem = showListBtn
+        
         doInitUI()
         
+        
         // core data
-//        let dataMgr = DataMgr()
+        let dataMgr = DataMgr()
 //        let model1 = SoundModel(name: "clips1", path: "../../clips1.mp4", duration: 4.688, createTime: Date())
 //        let model2 = SoundModel(name: "clips2", path: "../../clips2.mp4", duration: 1.23, createTime: Date())
         
@@ -24,13 +31,18 @@ class ViewController: UIViewController {
 //        dataMgr.storeSound(model: model2)
         
 //        dataMgr.deleteAllSound()
-//        
+//
 //        let array = dataMgr.getSound()
 //        if array != nil {
 //            print("count: \(array!.count)")
 //        }
         
         
+    }
+    
+    func didClickListBtn() {
+        let soundListVC = SoundListViewController()
+        navigationController?.pushViewController(soundListVC, animated: true)
     }
     
     func doInitUI() {
@@ -80,9 +92,29 @@ class ViewController: UIViewController {
     
     func didClickStopBtn() {
         AudioController.sharedInstance().stopRecording()
+        saveAudioData()
     }
     func didClickPlayBtn() {
         AudioController.sharedInstance().beginPlayingTheLatest()
+        
+        let dataMgr = DataMgr()
+        let array = dataMgr.getSound()
+        if array != nil {
+            print("count: \(array!.count)")
+        }
+    }
+    
+    // 保存录音数据
+    func saveAudioData() {
+        let dataMgr = DataMgr()
+        
+        let createTime = AudioController.sharedInstance().audioCreateTime!
+        let name = AudioController.sharedInstance().audioName!
+        let path = AudioController.sharedInstance().audioURL!.absoluteString
+        let duration = AudioController.sharedInstance().audioDuration!
+        
+        let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
+        dataMgr.storeSound(model: model)
     }
 
 
@@ -90,7 +122,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

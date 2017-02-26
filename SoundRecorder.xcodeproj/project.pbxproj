@@ -18,6 +18,7 @@
 		2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941A1E6171EA005044D6 /* DataMgr.swift */; };
 		2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941D1E6173F0005044D6 /* SoundModel.swift */; };
 		2A6594201E61AB37005044D6 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941F1E61AB37005044D6 /* AudioController.swift */; };
+		2ADC86811E6285D9006EE130 /* SoundListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC86801E6285D9006EE130 /* SoundListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		2A65941A1E6171EA005044D6 /* DataMgr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataMgr.swift; path = Controller/DataMgr.swift; sourceTree = "<group>"; };
 		2A65941D1E6173F0005044D6 /* SoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundModel.swift; path = Modle/SoundModel.swift; sourceTree = "<group>"; };
 		2A65941F1E61AB37005044D6 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioController.swift; path = Controller/AudioController.swift; sourceTree = "<group>"; };
+		2ADC86801E6285D9006EE130 /* SoundListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				2A65941C1E6173D0005044D6 /* Model */,
 				2A6594191E6171C0005044D6 /* Controller */,
 				2A6593EA1E616015005044D6 /* ViewController.swift */,
+				2ADC86801E6285D9006EE130 /* SoundListViewController.swift */,
 				2A6593EC1E616015005044D6 /* Main.storyboard */,
 				2A6593F21E616015005044D6 /* Assets.xcassets */,
 				2A6593F41E616015005044D6 /* LaunchScreen.storyboard */,
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */,
+				2ADC86811E6285D9006EE130 /* SoundListViewController.swift in Sources */,
 				2A6593F11E616015005044D6 /* SoundRecorder.xcdatamodeld in Sources */,
 				2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */,
 				2A6593EB1E616015005044D6 /* ViewController.swift in Sources */,
