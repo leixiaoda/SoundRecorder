@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var recordBtn: UIButton!
-    var playBtn: UIButton!
+    var playOrStopBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +23,12 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = showListBtn
         
         doInitUI()
+        doInitData()
         
         // core data
         let dataMgr = DataMgr()
         
-        dataMgr.deleteAllSound()
+//        dataMgr.deleteAllSound()
 //
 //        let array = dataMgr.getSound()
 //        if array != nil {
@@ -56,22 +57,27 @@ class ViewController: UIViewController {
         view.addSubview(recordBtn)
         
         // 播放按钮
-        playBtn = UIButton()
-        let playBtnSize: CGSize = CGSize(width: 80, height: 30)
-        playBtn.frame = CGRect.init(
+        playOrStopBtn = UIButton()
+        let playOrStopBtnSize: CGSize = CGSize(width: 80, height: 30)
+        playOrStopBtn.frame = CGRect.init(
             x: self.view.bounds.size.width - 100,
             y: self.view.bounds.size.height - 120,
-            width: playBtnSize.width,
-            height: playBtnSize.height)
-        playBtn.setTitle("播放", for: .normal)
-        playBtn.backgroundColor = UIColor.green
-        playBtn.layer.borderWidth = 2
-        playBtn.layer.cornerRadius = 16.0
-        playBtn.setTitleColor(UIColor.green, for: .normal)
-        playBtn.addTarget(self, action: #selector(didClickPlayBtn), for: .touchUpInside)
-        playBtn.isHidden = true
+            width: playOrStopBtnSize.width,
+            height: playOrStopBtnSize.height)
+        playOrStopBtn.setTitle("播放", for: .normal)
+        playOrStopBtn.backgroundColor = UIColor.green
+        playOrStopBtn.layer.borderWidth = 2
+        playOrStopBtn.layer.cornerRadius = 16.0
+        playOrStopBtn.setTitleColor(UIColor.green, for: .normal)
+        playOrStopBtn.addTarget(self, action: #selector(didClickplayOrStopBtn), for: .touchUpInside)
+        playOrStopBtn.isHidden = true
         
-        view.addSubview(playBtn)
+        view.addSubview(playOrStopBtn)
+    }
+    
+    func doInitData() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBeginPlayingNotification(notification:)), name: BeginPlayingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleStopPlayingNotification(notification:)), name: StopPlayingNotification, object: nil)
     }
     
     func didClickListBtn() {
@@ -92,10 +98,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func didClickPlayBtn() {
-        AudioController.sharedInstance().beginPlayingTheLatest()
-    }
-    
     func beginRecording() {
         AudioController.sharedInstance().beginRecording()
         setRecordingUI()
@@ -104,15 +106,15 @@ class ViewController: UIViewController {
     func stopRecording() {
         AudioController.sharedInstance().stopRecording()
         saveAudioData()
-        playBtn.isHidden = false
-        setDefaultUI()
+        playOrStopBtn.isHidden = false
+        setStopRecordingUI()
     }
     
     func setRecordingUI() {
         recordBtn.backgroundColor = UIColor.black
     }
     
-    func setDefaultUI() {
+    func setStopRecordingUI() {
         recordBtn.backgroundColor = UIColor.blue
     }
     
@@ -127,6 +129,48 @@ class ViewController: UIViewController {
         
         let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
         dataMgr.storeSound(model: model)
+    }
+    
+    func didClickplayOrStopBtn() {
+        if AudioController.sharedInstance().currentState == .playing {
+            AudioController.sharedInstance().stopPlaying()
+        } else {
+            AudioController.sharedInstance().beginPlayingTheLatest()
+        }
+    }
+    
+    // MARK: notification
+    
+    func handleBeginPlayingNotification(notification: Notification) {
+        let userInfo = notification.userInfo
+        if userInfo == nil {
+            print("userInfo is empty.")
+        }
+        
+        let url = userInfo!["url"] as? URL
+        if url == nil {
+            print("url is empty.")
+        }
+        
+        if AudioController.sharedInstance().playerAudioURL == url! {
+            setPlayingUI()
+        } else {
+            setStopPlayingUI()
+        }
+    }
+    
+    func handleStopPlayingNotification(notification: Notification) {
+        setStopPlayingUI()
+    }
+    
+    func setPlayingUI() {
+        playOrStopBtn.backgroundColor = UIColor.black
+        playOrStopBtn.setTitle("停止", for: .normal)
+    }
+    
+    func setStopPlayingUI() {
+        playOrStopBtn.backgroundColor = UIColor.green
+        playOrStopBtn.setTitle("播放", for: .normal)
     }
 
 

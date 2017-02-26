@@ -61,7 +61,6 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         }
         
         currentState = AudioControllerState.unused
-        playerAudioURL = URL(string: "")
     }
     
     static func sharedInstance() -> AudioController {
@@ -139,11 +138,11 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
                     audioPlayer.delegate = self
                     audioPlayer.play()
                     
+                    playerAudioURL = url!
+                    currentState = .playing
+                    
                     // 发送开始播放通知
                     NotificationCenter.default.post(name: BeginPlayingNotification, object: nil, userInfo: ["url": url!])
-                    
-                    currentState = .playing
-                    playerAudioURL = url!
                 } else {
                     print("url is nil.")
                 }
