@@ -21,7 +21,7 @@ class SoundCell: UITableViewCell {
     // 音频名称
     var titleLabel: UILabel!
     // 播放状态按钮
-    var playOrStopBtn: UIButton!
+    var playOrStopBtn: UIImageView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,12 +40,20 @@ class SoundCell: UITableViewCell {
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.sizeToFit()
-        titleLabel.frame = CGRect.init(x: 30, y: (CELL_HEIGHT - titleLabel.frame.size.height) / 2, width: UIScreen.main.bounds.width - 80, height: titleLabel.frame.size.height)
+        titleLabel.frame = CGRect.init(
+            x: 30,
+            y: (CELL_HEIGHT - titleLabel.frame.size.height) / 2,
+            width: UIScreen.main.bounds.width - 80,
+            height: titleLabel.frame.size.height)
         self.addSubview(titleLabel)
         
         let buttonSize = CGSize(width: 30, height: 30)
-        playOrStopBtn = UIButton(frame: CGRect.init(x: UIScreen.main.bounds.width - buttonSize.width - 30, y: (CELL_HEIGHT - buttonSize.height) / 2, width: buttonSize.width, height: buttonSize.height))
-        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
+        playOrStopBtn = UIImageView(image: UIImage(named:"playBtn.png"))
+        playOrStopBtn.frame = CGRect.init(
+            x: UIScreen.main.bounds.width - buttonSize.width - 30,
+            y: (CELL_HEIGHT - buttonSize.height) / 2,
+            width: buttonSize.width,
+            height: buttonSize.height)
         self.addSubview(playOrStopBtn)
     }
     
@@ -67,10 +75,10 @@ class SoundCell: UITableViewCell {
     }
     
     private func setPlayingUI() {
-        playOrStopBtn.setImage(UIImage(named:"stopBtn.png"), for: .normal)
+        playOrStopBtn.image = UIImage(named:"stopBtn.png")
     }
     
     private func setDefaultUI() {
-        playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
+        playOrStopBtn.image = UIImage(named:"playBtn.png")
     }
 }

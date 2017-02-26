@@ -46,9 +46,8 @@ class ViewController: UIViewController {
             width: recordBtnSize.width,
             height: recordBtnSize.height)
         recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
-//        recordBtn.setTitle("录音", for: .normal)
-        recordBtn.titleLabel?.font = UIFont.systemFont(ofSize: 60)
-        recordBtn.setTitleColor(UIColor.black, for: .normal)
+        recordBtn.alpha = 1
+        recordBtn.adjustsImageWhenHighlighted = false
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
         longPressGesture.minimumPressDuration = 0.2
         recordBtn.addGestureRecognizer(longPressGesture)
@@ -106,11 +105,13 @@ class ViewController: UIViewController {
     }
     
     func setRecordingUI() {
-        recordBtn.setImage(UIImage(named:"recordBtn_pressed.png"), for: .normal)
+        recordBtn.alpha = 0.8
+        recordBtn.transform = recordBtn.transform.scaledBy(x: 1.25, y: 1.25)
     }
     
     func setStopRecordingUI() {
-        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+        recordBtn.alpha = 1
+        recordBtn.transform = recordBtn.transform.scaledBy(x: 0.8, y: 0.8)
     }
     
     // 保存录音数据
