@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         doInitUI()
         
         
+        
+        
         // core data
         let dataMgr = DataMgr()
 //        let model1 = SoundModel(name: "clips1", path: "../../clips1.mp4", duration: 4.688, createTime: Date())
@@ -30,19 +32,21 @@ class ViewController: UIViewController {
 //        dataMgr.storeSound(model: model1)
 //        dataMgr.storeSound(model: model2)
         
-//        dataMgr.deleteAllSound()
+        dataMgr.deleteAllSound()
 //
-//        let array = dataMgr.getSound()
-//        if array != nil {
-//            print("count: \(array!.count)")
-//        }
+        let array = dataMgr.getSound()
+        if array != nil {
+            print("count: \(array!.count)")
+        }
         
         
     }
     
     func didClickListBtn() {
-        let soundListVC = SoundListViewController()
-        navigationController?.pushViewController(soundListVC, animated: true)
+        if navigationController != nil {
+            let soundListVC = SoundListViewController()
+            navigationController?.pushViewController(soundListVC, animated: true)
+        }
     }
     
     func doInitUI() {
@@ -96,12 +100,6 @@ class ViewController: UIViewController {
     }
     func didClickPlayBtn() {
         AudioController.sharedInstance().beginPlayingTheLatest()
-        
-        let dataMgr = DataMgr()
-        let array = dataMgr.getSound()
-        if array != nil {
-            print("count: \(array!.count)")
-        }
     }
     
     // 保存录音数据

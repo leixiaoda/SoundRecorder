@@ -10,12 +10,12 @@ import UIKit
 import Foundation
 import AVFoundation
 
+let BeginPlayingNotification = Notification.Name("beginPlayingNotificationIdentifier")
+let StopPlayingNotification = Notification.Name("stopPlayingNotificationIdentifier")
+
+
 final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     static let instance = AudioController()
-    private override init() {}
-    static func sharedInstance() -> AudioController {
-        return instance
-    }
     
     // 录音器
     var audioRecorder: AVAudioRecorder!
@@ -41,12 +41,25 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     // 音频时长
     var audioDuration: Double!
     
+    private override init() {
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+        } catch let error as NSError {
+            print(error)
+        }
+
+    }
+    
+    static func sharedInstance() -> AudioController {
+        return instance
+    }
+    
     
     // 开始录音的一系列步骤
     func beginRecording() {
         // 判断是否有麦克风权限
-        audioSession.requestRecordPermission { (isAllowed) in
-            if !isAllowed {
+        audioSession.requestRecordPermission { (hasAuthority) in
+            if !hasAuthority {
                 // undone
 //                let alertController = UIAlertController(title: "麦克风权限尚未开启", message: "请移步系统设置->隐私->麦克风，打开本APP的访问权限", preferredStyle: .actionSheet)
             } else {
@@ -59,7 +72,6 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     // 录音前的准备工作
     private func prepareRecording() {
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             refreshAudioURL()
             try audioRecorder = AVAudioRecorder(url: audioURL, settings: recorderSettings)
             audioRecorder.delegate = self
@@ -100,12 +112,15 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     
     // 开始播放
     func beginPlaying(url: URL?) {
-        if !audioRecorder.isRecording {
+        if audioRecorder == nil || !audioRecorder.isRecording {
             do {
                 if url != nil {
                     try audioPlayer = AVAudioPlayer(contentsOf: url!)
                     audioPlayer.delegate = self
                     audioPlayer.play()
+                    
+                    // 发送开始播放通知
+                    NotificationCenter.default.post(name: BeginPlayingNotification, object: nil, userInfo: ["createTime":audioCreateTime])
                 } else {
                     print("url is nil.")
                 }
@@ -117,7 +132,9 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     
     // 播放刚录好的音频
     func beginPlayingTheLatest() {
-        beginPlaying(url: audioRecorder.url)
+        if audioRecorder != nil {
+            beginPlaying(url: audioRecorder.url)
+        }
     }
     
     // 获取新录音文件的地址
@@ -138,6 +155,13 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         let asset = AVURLAsset(url: audioURL)
         let time = asset.duration;
         audioDuration = Double(CMTimeGetSeconds(time))
+    }
+    
+    // MARK: audioPlayer delegate
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        // 发送停止播放通知
+        NotificationCenter.default.post(name: StopPlayingNotification, object: nil)
     }
     
 }

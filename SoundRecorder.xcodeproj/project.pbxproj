@@ -19,6 +19,7 @@
 		2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941D1E6173F0005044D6 /* SoundModel.swift */; };
 		2A6594201E61AB37005044D6 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65941F1E61AB37005044D6 /* AudioController.swift */; };
 		2ADC86811E6285D9006EE130 /* SoundListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC86801E6285D9006EE130 /* SoundListViewController.swift */; };
+		2ADC86881E629787006EE130 /* SoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC86871E629787006EE130 /* SoundCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		2A65941D1E6173F0005044D6 /* SoundModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundModel.swift; path = Modle/SoundModel.swift; sourceTree = "<group>"; };
 		2A65941F1E61AB37005044D6 /* AudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioController.swift; path = Controller/AudioController.swift; sourceTree = "<group>"; };
 		2ADC86801E6285D9006EE130 /* SoundListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundListViewController.swift; sourceTree = "<group>"; };
+		2ADC86871E629787006EE130 /* SoundCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundCell.swift; path = View/SoundCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			children = (
 				2A6593E81E616015005044D6 /* AppDelegate.swift */,
 				2A65941C1E6173D0005044D6 /* Model */,
+				2ADC86821E6293E8006EE130 /* View */,
 				2A6594191E6171C0005044D6 /* Controller */,
 				2A6593EA1E616015005044D6 /* ViewController.swift */,
 				2ADC86801E6285D9006EE130 /* SoundListViewController.swift */,
@@ -154,6 +157,14 @@
 				2A65941D1E6173F0005044D6 /* SoundModel.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		2ADC86821E6293E8006EE130 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2ADC86871E629787006EE130 /* SoundCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +304,7 @@
 				2A65941B1E6171EA005044D6 /* DataMgr.swift in Sources */,
 				2ADC86811E6285D9006EE130 /* SoundListViewController.swift in Sources */,
 				2A6593F11E616015005044D6 /* SoundRecorder.xcdatamodeld in Sources */,
+				2ADC86881E629787006EE130 /* SoundCell.swift in Sources */,
 				2A65941E1E6173F0005044D6 /* SoundModel.swift in Sources */,
 				2A6593EB1E616015005044D6 /* ViewController.swift in Sources */,
 				2A6594201E61AB37005044D6 /* AudioController.swift in Sources */,
