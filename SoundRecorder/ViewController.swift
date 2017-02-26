@@ -26,8 +26,8 @@ class ViewController: UIViewController {
         doInitData()
         
         // core data
-        let dataMgr = DataMgr()
-        
+//        let dataMgr = DataMgr()
+//        
 //        dataMgr.deleteAllSound()
 //
 //        let array = dataMgr.getSound()

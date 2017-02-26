@@ -100,6 +100,29 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "删除"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let item: SoundModel? = soundList[indexPath.row]
+        let url = URL(string: item!.path)
+        
+        let dataMgr = DataMgr()
+        dataMgr.deleteSound(pathDemand: url!.absoluteString)
+        soundList = dataMgr.getSound()
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
     // MARK: notification
     
     func handleBeginPlayingNotification(notification: Notification) {

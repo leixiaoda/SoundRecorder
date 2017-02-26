@@ -57,14 +57,14 @@ class DataMgr: NSObject {
         return soundModels
     }
     
-    func deleteSound(createTimeDemand: Date) {
+    func deleteSound(pathDemand: String) {
         let context = getContext()
         let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
         do {
             let searchResults = try context.fetch(fetchRequest)
             for sound in searchResults as [NSManagedObject] {
-                let createTime = sound.value(forKey: "createTime") as! Date
-                if createTime == createTimeDemand {
+                let path = sound.value(forKey: "path") as! String
+                if path == pathDemand {
                     context.delete(sound)
                 }
             }

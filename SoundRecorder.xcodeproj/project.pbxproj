@@ -23,6 +23,7 @@
 		2AF564F01E63239D00C5D09A /* playBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF564EC1E63239D00C5D09A /* playBtn@2x.png */; };
 		2AF564F21E63239D00C5D09A /* stopBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF564EE1E63239D00C5D09A /* stopBtn@2x.png */; };
 		2AF564F91E632A7B00C5D09A /* recordBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF564F81E632A7B00C5D09A /* recordBtn.png */; };
+		2AF564FB1E63311600C5D09A /* recordBtn_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 2AF564FA1E63311600C5D09A /* recordBtn_pressed.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		2AF564EC1E63239D00C5D09A /* playBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "playBtn@2x.png"; path = "Resources/playBtn@2x.png"; sourceTree = SOURCE_ROOT; };
 		2AF564EE1E63239D00C5D09A /* stopBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stopBtn@2x.png"; path = "Resources/stopBtn@2x.png"; sourceTree = SOURCE_ROOT; };
 		2AF564F81E632A7B00C5D09A /* recordBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recordBtn.png; path = Resources/recordBtn.png; sourceTree = SOURCE_ROOT; };
+		2AF564FA1E63311600C5D09A /* recordBtn_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recordBtn_pressed.png; path = Resources/recordBtn_pressed.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		2A2090EC1E631EBA00B130A3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2AF564FA1E63311600C5D09A /* recordBtn_pressed.png */,
 				2AF564F81E632A7B00C5D09A /* recordBtn.png */,
 				2AF564EC1E63239D00C5D09A /* playBtn@2x.png */,
 				2AF564EE1E63239D00C5D09A /* stopBtn@2x.png */,
@@ -301,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A6593F61E616015005044D6 /* LaunchScreen.storyboard in Resources */,
+				2AF564FB1E63311600C5D09A /* recordBtn_pressed.png in Resources */,
 				2AF564F91E632A7B00C5D09A /* recordBtn.png in Resources */,
 				2AF564F01E63239D00C5D09A /* playBtn@2x.png in Resources */,
 				2A6593F31E616015005044D6 /* Assets.xcassets in Resources */,
