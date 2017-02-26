@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 class DataMgr: NSObject {
-    
+    // 存储音频数据
     func storeSound(model: SoundModel) {
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: SOUND_ENTITY_NAME, in: context)
@@ -35,6 +35,7 @@ class DataMgr: NSObject {
         }
     }
     
+    // 获取全部音频数据
     func getSound() -> [SoundModel]? {
         var soundModels = [SoundModel]()
         
@@ -57,6 +58,7 @@ class DataMgr: NSObject {
         return soundModels
     }
     
+    // 依据path删除特定音频数据
     func deleteSound(pathDemand: String) {
         let context = getContext()
         let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
@@ -73,7 +75,7 @@ class DataMgr: NSObject {
         }
     }
 
-    
+    // 删除全部音频数据
     func deleteAllSound() {
         let context = getContext()
         let fetchRequest: NSFetchRequest<Sound> = Sound.fetchRequest()
@@ -87,7 +89,7 @@ class DataMgr: NSObject {
         }
     }
     
-    func getContext() -> NSManagedObjectContext {
+    private func getContext() -> NSManagedObjectContext {
         let sharedDelegate = UIApplication.shared.delegate as! AppDelegate
         return sharedDelegate.persistentContainer.viewContext
     }

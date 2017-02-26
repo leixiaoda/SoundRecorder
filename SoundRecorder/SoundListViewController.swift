@@ -113,13 +113,22 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
         let item: SoundModel? = soundList[indexPath.row]
-        let url = URL(string: item!.path)
         
+        // 数据删除
         let dataMgr = DataMgr()
-        dataMgr.deleteSound(pathDemand: url!.absoluteString)
+        dataMgr.deleteSound(pathDemand: item!.path)
         soundList = dataMgr.getSound()
+        
+        // 文件删除
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(atPath: item!.path)
+        } catch let error as NSError {
+            print(error)
+        }
+        
+        // UI删除
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
