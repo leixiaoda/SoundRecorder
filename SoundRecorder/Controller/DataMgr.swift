@@ -11,6 +11,14 @@ import Foundation
 import CoreData
 
 class DataMgr: NSObject {
+    static let instance = DataMgr()
+    
+    private override init() {}
+    
+    static func sharedInstance() -> DataMgr {
+        return instance
+    }
+    
     // 存储音频数据
     func storeSound(model: SoundModel) {
         let context = getContext()

@@ -26,11 +26,9 @@ class ViewController: UIViewController {
         doInitData()
         
         // core data
-//        let dataMgr = DataMgr()
-//        
-//        dataMgr.deleteAllSound()
+//        DataMgr.sharedInstance().deleteAllSound()
 //
-//        let array = dataMgr.getSound()
+//        let array = DataMgr.sharedInstance().getSound()
 //        if array != nil {
 //            print("count: \(array!.count)")
 //        }        
@@ -123,15 +121,13 @@ class ViewController: UIViewController {
     
     // 保存录音数据
     func saveAudioData() {
-        let dataMgr = DataMgr()
-        
         let createTime = AudioController.sharedInstance().recorderAudioCreateTime!
         let name = AudioController.sharedInstance().recorderAudioName!
         let path = AudioController.sharedInstance().recorderAudioURL!.absoluteString
         let duration = AudioController.sharedInstance().recorderAudioDuration!
         
         let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
-        dataMgr.storeSound(model: model)
+        DataMgr.sharedInstance().storeSound(model: model)
     }
     
     func didClickplayOrStopBtn() {

@@ -40,8 +40,7 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func doInitData() {
-        let dataMgr = DataMgr()
-        soundList = dataMgr.getSound()
+        soundList = DataMgr.sharedInstance().getSound()
         
         soundListView.register(SoundCell.self, forCellReuseIdentifier: SOUND_CELL_IDENTIFIER)
         
@@ -116,9 +115,8 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
         let item: SoundModel? = soundList[indexPath.row]
         
         // 数据删除
-        let dataMgr = DataMgr()
-        dataMgr.deleteSound(pathDemand: item!.path)
-        soundList = dataMgr.getSound()
+        DataMgr.sharedInstance().deleteSound(pathDemand: item!.path)
+        soundList = DataMgr.sharedInstance().getSound()
         
         // 文件删除
         let fileManager = FileManager.default
