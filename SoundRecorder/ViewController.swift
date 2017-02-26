@@ -38,14 +38,16 @@ class ViewController: UIViewController {
     
     func doInitUI() {
         // 录音按钮
+        
         recordBtn = UIButton()
-        let recordBtnSize: CGSize = CGSize(width: 200, height: 200)
+        let recorderImage = UIImage(named:"recordBtn.png")
+        let recordBtnSize: CGSize = recorderImage!.size
         recordBtn.frame = CGRect.init(
             x: (self.view.bounds.size.width - recordBtnSize.width) / 2.0,
             y: (self.view.bounds.size.height - recordBtnSize.height) / 2.0,
             width: recordBtnSize.width,
             height: recordBtnSize.height)
-        recordBtn.setImage(UIImage(named:"recordBtn.png"), for: .normal)
+        recordBtn.setImage(recorderImage, for: .normal)
         recordBtn.alpha = 1
         recordBtn.adjustsImageWhenHighlighted = false
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
@@ -105,7 +107,7 @@ class ViewController: UIViewController {
     }
     
     func setRecordingUI() {
-        recordBtn.alpha = 0.8
+        recordBtn.alpha = 0.7
         
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.duration = 0.1
