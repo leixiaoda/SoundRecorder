@@ -46,10 +46,8 @@ class DataMgr: NSObject {
                 let name = sound.value(forKey: "name") as! String
                 let path = sound.value(forKey: "path") as! String
                 let duration = sound.value(forKey: "duration") as! Double
-//                let createTime = sound.value(forKey: "createTime")
                 let createTime = sound.value(forKey: "createTime") as! Date
                 let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
-//                let model = SoundModel(name: name, path: path, duration: duration, createTime: Date())
                 soundModels.append(model)
             }
         } catch let error as NSError {

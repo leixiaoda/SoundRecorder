@@ -120,7 +120,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
                     audioPlayer.play()
                     
                     // 发送开始播放通知
-                    NotificationCenter.default.post(name: BeginPlayingNotification, object: nil, userInfo: ["createTime":audioCreateTime])
+                    NotificationCenter.default.post(name: BeginPlayingNotification, object: nil, userInfo: ["url": url!])
                 } else {
                     print("url is nil.")
                 }

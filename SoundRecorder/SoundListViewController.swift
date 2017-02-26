@@ -91,8 +91,6 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
         let item: SoundModel? = soundList[indexPath.row]
         let url = URL(string: item!.path)
         AudioController.sharedInstance().beginPlaying(url: url)
@@ -106,14 +104,16 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
             print("userInfo is empty.")
         }
         
-        let createTime = userInfo!["createTime"] as? Date
-        if createTime == nil {
-            print("createTime is empty.")
+        let url = userInfo!["url"] as? URL
+        if url == nil {
+            print("url is empty.")
         }
         
         for cell in soundListView.visibleCells {
-            if cell.isKind(of: SoundCell.self) && (cell as! SoundCell).soundModel.createTime == createTime! {
+            if cell.isKind(of: SoundCell.self) && (cell as! SoundCell).soundModel.path == url!.absoluteString {
                 (cell as! SoundCell).setPlayState(state: .playing)
+            } else {
+                (cell as! SoundCell).setPlayState(state: .stop)
             }
         }
     }
