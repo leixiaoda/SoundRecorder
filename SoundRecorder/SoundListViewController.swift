@@ -68,6 +68,7 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CELL_HEIGHT
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: SOUND_CELL_IDENTIFIER, for: indexPath)
         
@@ -78,9 +79,7 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
 //        }        
         if item != nil && cell.isKind(of: SoundCell.self) {
             (cell as! SoundCell).setModel(model: item!)
-            
-            let player = AudioController.sharedInstance().audioPlayer
-            if player != nil && player!.isPlaying && player!.url?.absoluteString == item?.path {
+            if AudioController.sharedInstance().currentState == .playing && AudioController.sharedInstance().playerAudioURL.absoluteString == item?.path {
                 (cell as! SoundCell).setPlayState(state: .playing)
             } else {
                 (cell as! SoundCell).setPlayState(state: .stop)
@@ -93,7 +92,12 @@ class SoundListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: SoundModel? = soundList[indexPath.row]
         let url = URL(string: item!.path)
-        AudioController.sharedInstance().beginPlaying(url: url)
+        
+        if AudioController.sharedInstance().currentState == .playing && url == AudioController.sharedInstance().playerAudioURL {
+            AudioController.sharedInstance().stopPlaying()
+        } else {
+            AudioController.sharedInstance().beginPlaying(url: url)
+        }
     }
     
     // MARK: notification

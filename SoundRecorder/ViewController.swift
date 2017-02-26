@@ -109,7 +109,7 @@ class ViewController: UIViewController {
     }
     
     func setRecordingUI() {
-        recordBtn.backgroundColor = UIColor.red
+        recordBtn.backgroundColor = UIColor.black
     }
     
     func setDefaultUI() {
@@ -120,10 +120,10 @@ class ViewController: UIViewController {
     func saveAudioData() {
         let dataMgr = DataMgr()
         
-        let createTime = AudioController.sharedInstance().audioCreateTime!
-        let name = AudioController.sharedInstance().audioName!
-        let path = AudioController.sharedInstance().audioURL!.absoluteString
-        let duration = AudioController.sharedInstance().audioDuration!
+        let createTime = AudioController.sharedInstance().recorderAudioCreateTime!
+        let name = AudioController.sharedInstance().recorderAudioName!
+        let path = AudioController.sharedInstance().recorderAudioURL!.absoluteString
+        let duration = AudioController.sharedInstance().recorderAudioDuration!
         
         let model = SoundModel(name: name, path: path, duration: duration, createTime: createTime)
         dataMgr.storeSound(model: model)
