@@ -91,6 +91,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     private func prepareRecording() {
         do {
             refreshAudioURL()
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try audioRecorder = AVAudioRecorder(url: recorderAudioURL, settings: recorderSettings)
             audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
@@ -140,6 +141,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         if audioRecorder == nil || !audioRecorder.isRecording {
             do {
                 if url != nil {
+                    try audioSession.setCategory(AVAudioSessionCategoryPlayback)
                     try audioPlayer = AVAudioPlayer(contentsOf: url!)
                     audioPlayer.delegate = self
                     audioPlayer.play()
