@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     var recordBtn: UIButton!
     var playOrStopBtn: UIButton!
+    var tipsLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,19 +25,10 @@ class ViewController: UIViewController {
         
         doInitUI()
         doInitData()
-        
-        // core data
-//        DataMgr.sharedInstance().deleteAllSound()
-//
-//        let array = DataMgr.sharedInstance().getSound()
-//        if array != nil {
-//            print("count: \(array!.count)")
-//        }        
     }
     
     func doInitUI() {
         // 录音按钮
-        
         recordBtn = UIButton()
         let recorderImage = UIImage(named:"recordBtn.png")
         let recordBtnSize: CGSize = recorderImage!.size
@@ -67,6 +59,21 @@ class ViewController: UIViewController {
         playOrStopBtn.isHidden = true
         
         view.addSubview(playOrStopBtn)
+        
+        // 提示label
+        tipsLabel = UILabel()
+        tipsLabel.text = "录音中"
+        tipsLabel.textColor = UIColor.black
+        tipsLabel.font = UIFont.systemFont(ofSize: 16)
+        tipsLabel.sizeToFit()
+        tipsLabel.frame = CGRect.init(
+            x: (self.view.frame.size.width - tipsLabel.frame.size.width) / 2,
+            y: recordBtn.frame.origin.y - 40,
+            width: tipsLabel.frame.size.width,
+            height: tipsLabel.frame.size.height)
+        tipsLabel.isHidden = true
+        
+        view.addSubview(tipsLabel)
     }
     
     func doInitData() {
@@ -93,8 +100,16 @@ class ViewController: UIViewController {
     }
     
     func beginRecording() {
-        AudioController.sharedInstance().beginRecording()
-        setRecordingUI()
+        let result = AudioController.sharedInstance().beginRecording()
+        if !result.succeed {
+            let alertController = UIAlertController(title: result.errorTitle!, message: result.errorMsg!, preferredStyle: .actionSheet)
+            let okAction =  UIAlertAction(title: "好的", style: .default) { (UIAlertAction) in}
+            alertController.addAction(okAction)
+            alertController.show(self, sender: nil)
+            self.present(alertController, animated: true) {}
+        } else {
+            setRecordingUI()
+        }
     }
     
     func stopRecording() {
@@ -113,10 +128,14 @@ class ViewController: UIViewController {
         animation.toValue = 1.25
         animation.autoreverses = true
         recordBtn.layer.add(animation, forKey: "scale-layer")
+        
+        tipsLabel.isHidden = false
     }
     
     func setStopRecordingUI() {
         recordBtn.alpha = 1
+        
+        tipsLabel.isHidden = true
     }
     
     // 保存录音数据

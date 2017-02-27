@@ -69,16 +69,21 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     
     
     // 开始录音的一系列步骤
-    func beginRecording() {
+    func beginRecording() -> (succeed: Bool, errorTitle: String?, errorMsg: String?) {
         // 判断是否有麦克风权限
-        audioSession.requestRecordPermission { (hasAuthority) in
-            if !hasAuthority {
-                // undone
-//                let alertController = UIAlertController(title: "麦克风权限尚未开启", message: "请移步系统设置->隐私->麦克风，打开本APP的访问权限", preferredStyle: .actionSheet)
-            } else {
-                self.prepareRecording()
-                self.startRecording()
-            }
+        var hasAuthority: Bool = false
+        audioSession.requestRecordPermission { (isAllowed) in
+            hasAuthority = isAllowed
+        }
+        
+        if !hasAuthority {
+            let title: String = "麦克风权限尚未开启"
+            let message: String = "请移步系统设置->隐私->麦克风，打开本APP的访问权限"
+            return (false, title, message)
+        } else {
+            self.prepareRecording()
+            self.startRecording()
+            return (true, nil, nil)
         }
     }
     
