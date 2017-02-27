@@ -103,6 +103,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     private func startRecording() {
         if audioPlayer != nil && audioPlayer.isPlaying {
             audioPlayer.stop()
+            didStopPlaying()
             
             currentState = .unused
         }
@@ -184,7 +185,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         recorderAudioCreateTime = Date()
         let formatter = DateFormatter()
         // 文件命名规范为：../年月日-时分秒.m4a
-        formatter.dateFormat = "yyyyMMdd-HHmmss"
+        formatter.dateFormat = "yyyyMMdd-HH:mm:ss"
         recorderAudioName = formatter.string(from: recorderAudioCreateTime) + ".m4a"
         
         let fileManager = FileManager.default
@@ -204,5 +205,6 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         didStopPlaying()
     }
+    
     
 }

@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnRecordBtn(gesture:)))
         longPressGesture.minimumPressDuration = 0.1
         recordBtn.addGestureRecognizer(longPressGesture)
+        recordBtn.isExclusiveTouch = true
         
         view.addSubview(recordBtn)
         
