@@ -78,7 +78,7 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
         
         if !hasAuthority {
             let title: String = "麦克风权限尚未开启"
-            let message: String = "请移步系统设置->隐私->麦克风，打开本APP的访问权限"
+            let message: String = "请移步系统设置->隐私->麦克风，打开本App的访问权限"
             return (false, title, message)
         } else {
             self.prepareRecording()
@@ -124,8 +124,8 @@ final class AudioController: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDel
     func stopRecording() {
         if audioRecorder != nil && audioRecorder.isRecording {
             do {
-                try audioSession.setActive(false)
                 audioRecorder.stop()
+                try audioSession.setActive(false)
                 refreshAudioDuration()
                 
                 currentState = .unused
