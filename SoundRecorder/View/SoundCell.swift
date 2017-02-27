@@ -68,17 +68,17 @@ class SoundCell: UITableViewCell {
     
     func setPlayState(state: PlayState) {
         if state == .playing {
-            setPlayingUI()
+            showPlayingUI()
         } else if state == .stop {
-            setDefaultUI()
+            showDefaultUI()
         }
     }
     
-    private func setPlayingUI() {
+    private func showPlayingUI() {
         playOrStopBtn.image = UIImage(named:"stopBtn.png")
     }
     
-    private func setDefaultUI() {
+    private func showDefaultUI() {
         playOrStopBtn.image = UIImage(named:"playBtn.png")
     }
 }

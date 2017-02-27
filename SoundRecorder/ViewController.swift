@@ -108,7 +108,7 @@ class ViewController: UIViewController {
             alertController.show(self, sender: nil)
             self.present(alertController, animated: true) {}
         } else {
-            setRecordingUI()
+            showRecordingUI()
         }
     }
     
@@ -116,10 +116,10 @@ class ViewController: UIViewController {
         AudioController.sharedInstance().stopRecording()
         saveAudioData()
         playOrStopBtn.isHidden = false
-        setStopRecordingUI()
+        showStopRecordingUI()
     }
     
-    func setRecordingUI() {
+    func showRecordingUI() {
         recordBtn.alpha = 0.7
         
         let animation = CABasicAnimation(keyPath: "transform.scale")
@@ -132,7 +132,7 @@ class ViewController: UIViewController {
         tipsLabel.isHidden = false
     }
     
-    func setStopRecordingUI() {
+    func showStopRecordingUI() {
         recordBtn.alpha = 1
         
         tipsLabel.isHidden = true
@@ -171,21 +171,21 @@ class ViewController: UIViewController {
         }
         
         if AudioController.sharedInstance().playerAudioURL == url! {
-            setPlayingUI()
+            showPlayingUI()
         } else {
-            setStopPlayingUI()
+            showStopPlayingUI()
         }
     }
     
     func handleStopPlayingNotification(notification: Notification) {
-        setStopPlayingUI()
+        showStopPlayingUI()
     }
     
-    func setPlayingUI() {
+    func showPlayingUI() {
         playOrStopBtn.setImage(UIImage(named:"stopBtn.png"), for: .normal)
     }
     
-    func setStopPlayingUI() {
+    func showStopPlayingUI() {
         playOrStopBtn.setImage(UIImage(named:"playBtn.png"), for: .normal)
     }
 
